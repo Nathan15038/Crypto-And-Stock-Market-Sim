@@ -1,41 +1,3 @@
-MarketItem.java:
----------------
-public class MarketItem {
-    private String name;
-    private double price;
-    private double volatility;
-
-    public MarketItem(String name, double startPrice, double vol) {
-        this.name = name;
-        this.price = startPrice;
-        this.volatility = vol;
-    }
-
-    //Logic for price movement
-    public void updatePrice() {
-        //Calculate a random change based on volatility
-        //Update the price variable
-        //Ensure price doesn't go to $0.00
-        
-        double change = (Math.random() * 2 - 1) * volatility;
-        
-        if(price < 0.01) 
-        {
-            
-            price = 0.01;
-            
-        }
-        
-        
-    }
-
-    // Getters
-    public String getName() { return name; }
-    public double getPrice() { return price; }
-}
-
-MarketSimulation.java:
----------------------
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -105,6 +67,8 @@ public class MarketSimulation {
         }
 
         input.close();
+    }
+}
     }
 }
 
