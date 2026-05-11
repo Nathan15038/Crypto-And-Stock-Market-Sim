@@ -1,0 +1,110 @@
+MarketItem.java:
+---------------
+public class MarketItem {
+    private String name;
+    private double price;
+    private double volatility;
+
+    public MarketItem(String name, double startPrice, double vol) {
+        this.name = name;
+        this.price = startPrice;
+        this.volatility = vol;
+    }
+
+    //Logic for price movement
+    public void updatePrice() {
+        //Calculate a random change based on volatility
+        //Update the price variable
+        //Ensure price doesn't go to $0.00
+        
+        double change = (Math.random() * 2 - 1) * volatility;
+        
+        if(price < 0.01) 
+        {
+            
+            price = 0.01;
+            
+        }
+        
+        
+    }
+
+    // Getters
+    public String getName() { return name; }
+    public double getPrice() { return price; }
+}
+
+MarketSimulation.java:
+---------------------
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class MarketSimulation {
+
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("1 = Stocks");
+        System.out.println("2 = Crypto");
+        System.out.print("Choose market: ");
+        int pick = input.nextInt();
+
+        // STOCKS
+        ArrayList<MarketItem> stocks = new ArrayList<>();
+
+        stocks.add(new MarketItem("Apple (AAPL)", 283.60, 0.03));
+        stocks.add(new MarketItem("Intel (INTC)", 108.15, 0.05));
+        stocks.add(new MarketItem("AMD (AMD)", 353.91, 0.08));
+        stocks.add(new MarketItem("Nvidia (NVDA)", 196.28, 0.10));
+        stocks.add(new MarketItem("IBM (IBM)", 229.03, 0.02));
+        stocks.add(new MarketItem("Seagate (STX)", 753.51, 0.05));
+
+        // CRYPTO
+        ArrayList<MarketItem> crypto = new ArrayList<>();
+
+        crypto.add(new MarketItem("Bitcoin (BTC)", 81076.85, 0.10));
+        crypto.add(new MarketItem("Ethereum (ETH)", 2361.88, 0.12));
+        crypto.add(new MarketItem("Monero (XMR)", 410.65, 0.09));
+        crypto.add(new MarketItem("Chia (XCH)", 2.12, 0.15));
+        crypto.add(new MarketItem("Ergo (ERG)", 0.3191, 0.18));
+        crypto.add(new MarketItem("Ravencoin (RVN)", 0.006001, 0.20));
+
+        System.out.print("How many days should the simulation run? ");
+        int days = input.nextInt();
+
+        // MAIN LOOP
+        for (int i = 1; i <= days; i++) {
+
+            System.out.println("\n--- Day " + i + " ---");
+
+            if (pick == 1) {
+
+                for (MarketItem stock : stocks) {
+                    stock.updatePrice();
+
+                    System.out.printf("%s: $%.2f\n",
+                            stock.getName(),
+                            stock.getPrice());
+                }
+
+            } else if (pick == 2) {
+
+                for (MarketItem coin : crypto) {
+                    coin.updatePrice();
+
+                    System.out.printf("%s: $%.6f\n",
+                            coin.getName(),
+                            coin.getPrice());
+                }
+
+            } else {
+                System.out.println("Invalid choice.");
+                break;
+            }
+        }
+
+        input.close();
+    }
+}
+
